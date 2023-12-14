@@ -8,11 +8,11 @@ mintime = 1e18
 maxtime = -1e18
 infall = 0
 for i, cor in enumerate(data):
-    inform = int(cor[1][8:12], 16) * 8 + 64 + 160
-    infall += inform
-    timenow = int(cor[0]) / 1000
-    if timenow < mintime:
-        mintime = timenow
-    if timenow > maxtime:
-        maxtime = timenow
-print(math.floor(infall / (maxtime - mintime)))
+    inf = len(bin(int(cor[1], 16))[2:])
+    sums += inf
+    data[i] = tuple([int(cor[0]) / 1000, inf])
+data = sorted(data)
+start, finish = data[0][0], data[-1][0]
+print(start, finish)
+t = finish - start
+print(math.floor(sums / t))
