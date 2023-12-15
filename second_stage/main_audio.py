@@ -17,9 +17,8 @@ for x, y in data:
 
 fft = rfft(signal)
 frequencies = rfftfreq(len(signal), d=1/8000)
-peaks, _ = find_peaks(np.abs(fft), height=1)
+peaks, _ = find_peaks(np.abs(fft), height=9)
 transmitter_frequencies = frequencies[peaks]
 
 
-for freq in transmitter_frequencies:
-    print(f"{freq:.2f}", end=" ")
+print(*transmitter_frequencies[:3])
