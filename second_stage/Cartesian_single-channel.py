@@ -1,10 +1,13 @@
 import math
 
+
 def to_degrees(x):
     return x * (180 / math.pi)
 
+
 def to_radian(x):
     return x / (180 / math.pi)
+
 
 def calc_azimut(x):
     if 0 <= x <= 90:
@@ -63,12 +66,12 @@ if n == 1:
 elif n == 2:
     print(to_radian(calc_azimut((angles[1 - new_index][0] + 180) % 360.0)), 360.0)
 else:
-    if new_index != n-1:
-        mx_ugol = abs(angles[(new_index-1) % n][0] - angles[(new_index + 1)%n][0])
-        azimut = (angles[(new_index-1) % n][0] + angles[(new_index + 1) % n][0])/2
+    if new_index != n - 1:
+        mx_ugol = abs(angles[(new_index - 1) % n][0] - angles[(new_index + 1) % n][0])
+        azimut = (angles[(new_index - 1) % n][0] + angles[(new_index + 1) % n][0]) / 2
         azimut = calc_azimut(azimut)
     else:
-        mx_ugol = angles[0][0] + 360 - angles[n-2][0]
-        azimut = (angles[n-2][0] + mx_ugol/2) % 360.0
+        mx_ugol = angles[0][0] + 360 - angles[n - 2][0]
+        azimut = (angles[n - 2][0] + mx_ugol / 2) % 360.0
         azimut = calc_azimut(azimut)
     print(to_radian(azimut), mx_ugol)

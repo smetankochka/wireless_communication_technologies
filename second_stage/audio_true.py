@@ -1,7 +1,6 @@
 import sys
 from scipy.fft import rfft, rfftfreq
 
-
 normalized_tone = sys.stdin.read().split()
 res = []
 for i in range(1, len(normalized_tone), 2):

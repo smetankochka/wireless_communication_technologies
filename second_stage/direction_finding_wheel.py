@@ -1,25 +1,28 @@
 # import matplotlib.pyplot as plt
 import sys
 
+
 def find_intersection_line_circle(x0, y0, r0, a, b, c):
-    d = (2 * a * c - 2 * b ** 2 * x0 + 2 * a * b * y0) ** 2 - 4 * (a ** 2 + b ** 2) *\
-    (b ** 2 * x0 ** 2 + b ** 2 * y0 ** 2 + c ** 2 + 2 * y0 * b * c - r0 ** 2 * b ** 2)
+    d = (2 * a * c - 2 * b ** 2 * x0 + 2 * a * b * y0) ** 2 - 4 * (a ** 2 + b ** 2) * \
+        (b ** 2 * x0 ** 2 + b ** 2 * y0 ** 2 + c ** 2 + 2 * y0 * b * c - r0 ** 2 * b ** 2)
     if d >= 0:
-        x1 = (-(2 * a * c - 2 * b ** 2 * x0 + 2 * a * b * y0) + d ** (1/2)) / (2 * (a ** 2 + b ** 2))
-        x2 = (-(2 * a * c - 2 * b ** 2 * x0 + 2 * a * b * y0) - d ** (1/2)) / (2 * (a ** 2 + b ** 2))
+        x1 = (-(2 * a * c - 2 * b ** 2 * x0 + 2 * a * b * y0) + d ** (1 / 2)) / (2 * (a ** 2 + b ** 2))
+        x2 = (-(2 * a * c - 2 * b ** 2 * x0 + 2 * a * b * y0) - d ** (1 / 2)) / (2 * (a ** 2 + b ** 2))
         y1, y2 = (-c - a * x1) / b, (-c - a * x2) / b
         return [[x1, y1], [x2, y2]]
     else:
         return None
 
+
 def find_intersection_circle_circle(x1, y1, r1, x2, y2, r2):
     x2, y2 = x2 - x1, y2 - y1
-    res = find_intersection_line_circle(0, 0, r1, 2*x2, 2*y2, -(x2 ** 2 + y2 ** 2 + r1 ** 2 - r2 ** 2))
+    res = find_intersection_line_circle(0, 0, r1, 2 * x2, 2 * y2, -(x2 ** 2 + y2 ** 2 + r1 ** 2 - r2 ** 2))
     if res is not None:
         x11, y11, x22, y22 = res[0][0] + x1, res[0][1] + y1, res[1][0] + x1, res[1][1] + y1
         return [[x11, y11], [x22, y22]]
     else:
         return None
+
 
 def find_intersection_line_line(a1, b1, c1, a2, b2, c2):
     if b1 == 0:
@@ -28,14 +31,17 @@ def find_intersection_line_line(a1, b1, c1, a2, b2, c2):
     y = -(c1 + a1 * x) / b1
     return [x, y]
 
+
 def find_line(x1, y1, x2, y2):
     a = 1 if y1 != y2 else 0
     b = (x2 - x1) / (y1 - y2) if y2 != y1 else 1
     c = -(x1 + b * y1)
     return [a, b, c]
 
+
 def find_perpendicular(a, b, c, x, y):
     return [-b, a, b * x - a * y]
+
 
 def find_center(x1, y1, x2, y2, x3, y3):
     mx1, my1, mx2, my2 = (x1 + x2) / 2, (y1 + y2) / 2, (x2 + x3) / 2, (y2 + y3) / 2
@@ -46,9 +52,9 @@ def find_center(x1, y1, x2, y2, x3, y3):
     xc, yc = find_intersection_line_line(a1p, b1p, c1p, a2p, b2p, c2p)
     return [xc, yc]
 
-def find_radius(xc, yc, x1, y1):
-    return ((xc - x1) ** 2 + (yc - y1) ** 2) ** (1/2)
 
+def find_radius(xc, yc, x1, y1):
+    return ((xc - x1) ** 2 + (yc - y1) ** 2) ** (1 / 2)
 
 
 lines = sys.stdin.readlines()
@@ -59,10 +65,9 @@ x3, y3 = list(map(float, lines[2].split()))
 pings = []
 v = 343
 for i in range(len(lines) - 3):
-    s = lines[3+i]
-    pings.append([int(s.split()[0]), (float(s.split()[1]) - 10)/2,
-                  (float(s.split()[2]) - 10)/2, (float(s.split()[3]) - 10)/2])
-
+    s = lines[3 + i]
+    pings.append([int(s.split()[0]), (float(s.split()[1]) - 10) / 2,
+                  (float(s.split()[2]) - 10) / 2, (float(s.split()[3]) - 10) / 2])
 
 dists = [[ping[1] / 1000 * v, ping[2] / 1000 * v, ping[3] / 1000 * v] for ping in pings]
 # print(*dists)
@@ -101,4 +106,3 @@ print(xc, yc, radius)
 # plt.scatter(x, y)
 # plt.show()
 # print(find_perpendicular(1, -1, 0, 1, 1))
-
