@@ -6,7 +6,6 @@ normalized_tone = sys.stdin.read().split()
 res = []
 for i in range(1, len(normalized_tone), 2):
     res.append(normalized_tone[i])
-print(res)
 N = 8000
 
 yf = list(abs(rfft(res)))
@@ -27,3 +26,4 @@ for i in t:
 for i in sorted(f, key=lambda x: -x[1]):
     s.append(i[0])
 print(*s)
+# 1313.0 543.0 328.0
