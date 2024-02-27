@@ -1,5 +1,6 @@
 import csv
 import numpy as np
+from matplotlib import pyplot as plt
 
 x, y = [], []
 with open('sample-1.csv', 'r') as csvfile:
@@ -27,3 +28,10 @@ for i in range(0, 6000, 375):
         print(1, end="")
     else:
         print(0, end="")
+
+
+# plt.plot(x, y)
+# plt.title('Plot of CSV')
+# plt.xlabel('X')
+# plt.ylabel('Y')
+# plt.show()
