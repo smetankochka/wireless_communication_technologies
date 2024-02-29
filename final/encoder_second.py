@@ -6,8 +6,13 @@ with open("input_second.txt", "r") as file:
                 if not bit:
                     out.write("0\n" * 200)
                     continue
-                out.write("0\n" * 50)
-                out.write("3750\n" * 33)
-                out.write("0\n" * 33)
-                out.write("3750\n" * 34)
-                out.write("0\n" * 50)
+                out.write("4095\n" * 20)
+                out.write("0\n" * 20)
+                out.write("4095\n" * 20)
+                out.write("0\n" * 20)
+                out.write("4095\n" * 20)
+                out.write("0\n" * 20)
+                out.write("4095\n" * 20)
+                out.write("0\n" * 20)
+                out.write("4095\n" * 20)
+                out.write("0\n" * 20)
