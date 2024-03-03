@@ -1,25 +1,35 @@
-def decoder(filein, fileout, filelog, block_size: int = 256):
-    try:
-        block_size = 256
-        packets = {}
-        number_list = []
-        count = -1
-        while True:
-            count += 1
-            s = filein.read(block_size)
-            print(s)
-            if not s:
-                break
-            number = s[0]
-            print(number)
-            if number not in number_list:
-                number_list.append(number)
-            s = s[1:].replace(b';', b'')
-            packets[number] = s
-        print(sorted(number_list))
-        print(count)
-        for i in sorted(list(number_list)):
-            fileout.write(packets[i])
+def encoder(filein, fileout):
+    blocksize = 1023
+    num = 1
+    code = True
+    pakets = []
+    while code:
+        s = filein.read(blocksize)
+        if len(s) != 1023:
+            code = False
 
-    except Exception as e:
-        print(str(e))
+        s += bytes([0] * (1023 - len(s)))
+
+        if num > 255:
+            raise Exception("Переполнение")
+        number = bytes([num])
+        num += 1
+        paket = number + s
+        pakets.append(paket)
+
+    offset = len(pakets) // 7
+
+
+    for i in pakets:
+        fileout.write(i)
+    for i in range(1, 9):
+        for j in pakets[i * offset:]:
+            fileout.write(j)
+        for j in pakets[:i * offset]:
+            fileout.write(j)
+
+
+if __name__ == "__main__":
+    filein = open("test.txt", "rb")
+    fileout = open("out.txt", "wb")
+    encoder(filein, fileout)
